@@ -3,7 +3,6 @@ import ltk
 
 @ltk.callback
 def save_to_file(event):
-    print(ltk.find("#content").val())
     ltk.File().download("example.txt", ltk.find("#content").val())
 
 
@@ -29,9 +28,8 @@ of text content."""
             },
         ).attr("id", "content"),
         ltk.Button("Save text to file", save_to_file)
-        .css("margin-top", 5)
-        .css(*margin_left),
+            .css("margin-top", 5)
+            .css(*margin_left),
     )
 
-print("Hello world")
 create().appendTo(ltk.find("body"))
