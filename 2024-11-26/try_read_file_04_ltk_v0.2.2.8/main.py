@@ -11,12 +11,14 @@ def create():
         ltk.Heading1("Can we read a file?"),
         ltk.File(loaded_file),
         ltk.Label("File contents:"),
-        ltk.Code(
-            "Plaintext",
+        ltk.Preformatted(
             "File contents will be shown here after selecting file.",
-            style={
-                "width": "90%",
+            {
                 "margin-left": 20,
+                "margin-right": 20,
+                "padding": 8,
+                "background-color": "lightyellow",
+                "border": "1px solid gray",
             },
         ).attr("id", "content"),
     )
