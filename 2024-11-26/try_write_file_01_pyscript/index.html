@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PyScript String Writer</title>
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+</head>
+<body>
+    <button id="saveButton">Save Example String</button>
+
+    <py-config>
+        packages = []
+    </py-config>
+
+    <py-script>
+from js import document, window, Blob, URL, console
+from pyodide.ffi import create_proxy
+
+def write_string_to_file(content, filename):
+    try:
+        # Create a Blob containing the text
+        blob = Blob.new([content], {type: 'text/plain'})
+        
+        # Create a URL for the Blob
+        url = URL.createObjectURL(blob)
+        
+        # Create a temporary link element
+        link = document.createElement('a')
+        link.href = url
+        link.download = filename
+        
+        # Append link to body, click it, and remove it
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        
+        # Clean up the URL
+        URL.revokeObjectURL(url)
+        
+    except Exception as e:
+        console.error(f"Error saving file: {str(e)}")
+
+def save_example(event):
+    # Example string
+    my_string = """This is an example string
+with multiple lines
+of text content."""
+    
+    write_string_to_file(my_string, "example.txt")
+
+# Add event listener to the save button
+save_button = document.getElementById('saveButton')
+save_button.addEventListener('click', create_proxy(save_example))
+    </py-script>
+</body>
+</html>
