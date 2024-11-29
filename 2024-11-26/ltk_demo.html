@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <!-- Define dependencies -->
+    <py-config>
+        packages = ["ltk"]
+    </py-config>
+</head>
+<body>
+    <div id="container">
+        <button id="my-button">Click me</button>
+        <div id="result"></div>
+        
+        <form id="my-form">
+            <input type="text" id="name-input" placeholder="Name">
+            <input type="email" id="email-input" placeholder="Email">
+            <button type="submit">Submit</button>
+        </form>
+        <div id="form-result"></div>
+        
+        <div id="content"></div>
+    </div>
+    
+    <py-script>
+from ltk import $
+
+def handle_click(event):
+    print("Button clicked!")
+    $("#result").text("Button was clicked!")
+
+$("#my-button").on("click", handle_click)
+
+def handle_submit(event):
+    event.preventDefault()
+    name = $("#name-input").val()
+    email = $("#email-input").val()
+    $("#form-result").html(f"Submitted: {name}, {email}")
+
+$("#my-form").on("submit", handle_submit)
+    </py-script>
+</body>
+</html>
